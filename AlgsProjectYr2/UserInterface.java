@@ -11,7 +11,7 @@ public class UserInterface {
 					+ "2 - Search for a bus stop by full name or by the first few characters in the name \n"
 					+ "3 - Searching for all trips with a given arrival time");
 			count++;
-			if(count==2) {
+			if(count==3) {
 				quit = true;
 			}
 		}
