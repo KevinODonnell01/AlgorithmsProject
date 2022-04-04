@@ -1,3 +1,13 @@
 /UserInterface.class
 /edgeWeightedGraph.class
 /busRouteFinder.class
+/DijkstraSP.class
+/DirectedEdge.class
+/IndexMinPQ.class
+/Stack.class
+/Bag.class
+/Bag$ListIterator.class
+/Bag$Node.class
+/IndexMinPQ$HeapIterator.class
+/Stack$LinkedIterator.class
+/Stack$Node.class
