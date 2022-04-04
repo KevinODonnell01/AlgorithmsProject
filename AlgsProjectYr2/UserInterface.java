@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class UserInterface {
 
 	public static void main(String[] args) {
+		
 		boolean run = false;
 		do {
             run = UI();
@@ -32,6 +33,7 @@ public class UserInterface {
 				boolean valid = false;
 				try {
 					valid = true;
+					return false;
 				}  catch (NumberFormatException e) {
 
 		        }
@@ -39,6 +41,7 @@ public class UserInterface {
 				if(choice == 4) {
 					quit = true;
 					System.out.print("You have quit the search engine, goodbye \n ");
+					return false;
 					}
 				
 				else if( choice == 1 || choice == 2 || choice ==3) {
@@ -50,7 +53,7 @@ public class UserInterface {
 						boolean validSecond = false;
 						boolean different = false;
 						
-						while(different == false) {
+						do{
 							
 						while(validFirst == false) {
 						System.out.print("Plaese enter the first stop in your trip \n");
@@ -82,13 +85,16 @@ public class UserInterface {
 						// check if stops are different
 						if(firstStop == secondStop) {
 							System.out.print("Your stops were the same hense there is no shorest path, please re-do\n");
+							different = false;
+							validFirst = false;
+							validSecond = false;
 						}
-						else if (firstStop != secondStop) {
+						else{
 							different = true;
 						}
-						}
+						}while(different == false) ;
 						// both valid
-				 getShortestPath(firstStop, secondStop);
+				 busRouteFinder.getShortestPath(firstStop, secondStop);
 					}
 					
 					if (choice == 2) {
