@@ -37,9 +37,8 @@ public class DirectedEdge {
      * @throws IllegalArgumentException if {@code weight} is {@code NaN}
      */
     public DirectedEdge(int v, int w, double weight) {
-        if (v < 0) throw new IllegalArgumentException("Vertex names must be non-negative integers");
-        if (w < 0) throw new IllegalArgumentException("Vertex names must be non-negative integers");
-        if (Double.isNaN(weight)) throw new IllegalArgumentException("Weight is NaN");
+       
+      
         this.v = v;
         this.w = w;
         this.weight = weight;
@@ -68,6 +67,8 @@ public class DirectedEdge {
     public double weight() {
         return weight;
     }
+
+
 
     /**
      * Returns a string representation of the directed edge.

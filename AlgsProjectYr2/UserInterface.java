@@ -1,19 +1,16 @@
+
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class UserInterface {
 
 	public static void main(String[] args) {
-		
+	
 		boolean run = false;
 		do {
             run = UI();
         } while (run);
 	}
-	
-	//methods
-	  private static void getShortestPath(int stop1, int stop2) {
-	     System.out.print("stop 1 " + stop1 + "stop 2 " +stop2);
-	    }
 	
 	//ui
 	public static boolean UI () {
@@ -26,17 +23,11 @@ public class UserInterface {
 						+ "1 - Find shortest paths between 2 bus stops \n"
 						+ "2 - Search for a bus stop by full name or by the first few characters in the name \n"
 						+ "3 - Searching for all trips with a given arrival time \n"
-						+ "4 - to quit the search engine");
+						+ "4 - to quit the search engine\n");
 			
 				
 				int choice = scanner.nextInt();
-				boolean valid = false;
-				try {
-					valid = true;
-					return false;
-				}  catch (NumberFormatException e) {
-
-		        }
+				
 				
 				if(choice == 4) {
 					quit = true;
@@ -45,7 +36,7 @@ public class UserInterface {
 					}
 				
 				else if( choice == 1 || choice == 2 || choice ==3) {
-					System.out.print("You have chosen an option \n");
+					System.out.print("You have chosen option " + choice + "\n");
 					
 					if(choice == 1) {
 						int firstStop =0 , secondStop =0;
@@ -56,7 +47,7 @@ public class UserInterface {
 						do{
 							
 						while(validFirst == false) {
-						System.out.print("Plaese enter the first stop in your trip \n");
+						System.out.print("Please enter the first (starting) stop in your trip: \n");
 						if(scanner.hasNextInt()) {
 								firstStop = scanner.nextInt();
 								validFirst = true;
@@ -70,7 +61,7 @@ public class UserInterface {
 						// now get second stop
 						
 						while(validSecond == false) {
-						System.out.print("Plaese enter the second stop (destination) in your trip \n");
+						System.out.print("Plaese enter the second(destination) stop in your trip \n");
 						if(scanner.hasNextInt()) {
 							secondStop = scanner.nextInt();
 							validSecond = true;
@@ -94,7 +85,13 @@ public class UserInterface {
 						}
 						}while(different == false) ;
 						// both valid
-				 busRouteFinder.getShortestPath(firstStop, secondStop);
+					
+						try {
+						
+							busRouteFinder.findShortestPath(firstStop, secondStop);
+						} catch (FileNotFoundException e) {
+						System.out.print("nope");
+						}
 					}
 					
 					if (choice == 2) {
