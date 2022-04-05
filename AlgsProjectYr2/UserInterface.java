@@ -95,7 +95,10 @@ public class UserInterface {
 					}
 					
 					if (choice == 2) {
-						
+						System.out.print("Please type the name of the stop you are searching for, or even just the first few letters:");
+						String stopName;
+						stopName = scanner.next();
+						busStopFinder.findStop(stopName);
 					}
 					
 					if (choice == 3) {
