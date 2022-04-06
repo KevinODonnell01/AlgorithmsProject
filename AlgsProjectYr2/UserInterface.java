@@ -5,15 +5,15 @@ import java.util.Scanner;
 public class UserInterface {
 
 	public static void main(String[] args) {
-	
+		 TST tree = new TST("stops.txt");
 		boolean run = false;
 		do {
-            run = UI();
+            run = UI(tree);
         } while (run);
 	}
 	
 	//ui
-	public static boolean UI () {
+	public static boolean UI (TST tree) {
 	// TODO Auto-generated method stub
 			boolean quit = false; 
 			Scanner scanner= new Scanner(System.in);
@@ -98,7 +98,8 @@ public class UserInterface {
 						System.out.print("Please type the name of the stop you are searching for, or even just the first few letters:");
 						String stopName;
 						stopName = scanner.next();
-						busStopFinder.findStop(stopName);
+						stopName = stopName.trim().toUpperCase();
+						busStopSearch(stopName, tree); //error
 					}
 					
 					if (choice == 3) {
@@ -113,5 +114,7 @@ public class UserInterface {
 			}
 		return true;
 	}
+
+	
 }
 

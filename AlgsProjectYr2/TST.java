@@ -1,41 +1,6 @@
-
-/******************************************************************************
- *  Compilation:  javac TST.java
- *  Execution:    java TST < words.txt
- *  Dependencies: StdIn.java
- *  Data files:   https://algs4.cs.princeton.edu/52trie/shellsST.txt
- *
- *  Symbol table with string keys, implemented using a ternary search
- *  trie (TST).
- *
- *
- *  % java TST < shellsST.txt
- *  keys(""):
- *  by 4
- *  sea 6
- *  sells 1
- *  she 0
- *  shells 3
- *  shore 7
- *  the 5
- *
- *  longestPrefixOf("shellsort"):
- *  shells
- *
- *  keysWithPrefix("shor"):
- *  shore
- *
- *  keysThatMatch(".he.l."):
- *  shells
- *
- *  % java TST
- *  theory the now is the time for all good men
- *
- *  Remarks
- *  --------
- *    - can't use a key that is the empty string ""
- *
- ******************************************************************************/
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 /**
  *  The {@code TST} class represents an symbol table of key-value
@@ -75,6 +40,9 @@ public class TST<Value> {
     public TST() {
     }
 
+    public TST(String filename) {
+        MakeTST(filename);
+    }
     /**
      * Returns the number of key-value pairs in this symbol table.
      * @return the number of key-value pairs in this symbol table
@@ -191,7 +159,7 @@ public class TST<Value> {
      * @return all keys in the symbol table as an {@code Iterable}
      */
     public Iterable<String> keys() {
-        Queue<String> queue = new Queue<String>();  //add queue class
+        Queue<String> queue = new Queue<String>();
         collect(root, new StringBuilder(), queue);
         return queue;
     }
@@ -259,5 +227,37 @@ public class TST<Value> {
      *
      * @param args the command-line arguments
      */
- 
+    public static void MakeTST(String filename) {
+
+        // build symbol table from standard input
+        TST<String> tst = new TST<String>();
+        try {
+			File file = new File(filename);
+			Scanner scanner = new Scanner(file);
+			String dud = scanner.nextLine();
+			
+			while(scanner.hasNextLine()) {
+				String information = scanner.nextLine().trim();
+				information = information.toUpperCase();
+				String[] informationBreakdown = information.split(",");
+				String stop =  informationBreakdown[2];
+				String informationSorted = "ID:" + informationBreakdown[0] + "Code:" +informationBreakdown[1]+ "Name:" +informationBreakdown[2]+ 
+						"Description:" +informationBreakdown[3]+ "Latitude:" +informationBreakdown[4]+ "Longitude:"
+						+informationBreakdown[5]+ "Zone ID:" +informationBreakdown[6];
+				
+				String alteredStop = busStopFinder.changeNameOf(stop, false);
+				
+				tst.put(alteredStop, informationSorted);
+			}
+		} catch (FileNotFoundException e) {
+			System.out.print("file not found");
+			e.printStackTrace();
+		}
+        
+     
+    }
+    
+    
+   
+    
 }
