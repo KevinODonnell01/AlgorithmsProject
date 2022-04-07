@@ -1,19 +1,21 @@
 
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class UserInterface {
 
-	public static void main(String[] args) {
-		 TST tree = new TST("stops.txt");
+	public static void main(String[] args) throws FileNotFoundException {
+		// TST tree = new TST("stops.txt");
 		boolean run = false;
 		do {
-            run = UI(tree);
+            run = UI();
         } while (run);
 	}
 	
 	//ui
-	public static boolean UI (TST tree) {
+	public static boolean UI () throws FileNotFoundException {
 	// TODO Auto-generated method stub
 			boolean quit = false; 
 			Scanner scanner= new Scanner(System.in);
@@ -99,11 +101,17 @@ public class UserInterface {
 						String stopName;
 						stopName = scanner.next();
 						stopName = stopName.trim().toUpperCase();
-						busStopSearch(stopName, tree); //error
+			//			busStopSearch(stopName, tree); //error
 					}
 					
 					if (choice == 3) {
-						
+						System.out.print("Please search for an arrival time in the format xx:yy:zz :");
+						String arrivalTime = scanner.next();
+						 if (timeFormatChecker(arrivalTime)) { // check first if format is correct
+							 busTimeFinder.findArrivalTime(arrivalTime);
+	                        } else {
+	                            System.out.println("You must enter a valid time in the format  - hh:mm:ss");
+	                        }
 					}
 					
 					
@@ -114,7 +122,69 @@ public class UserInterface {
 			}
 		return true;
 	}
-
-	
+	   private static boolean timeFormatChecker(String timeSearched) {
+		   // https://www.geeksforgeeks.org/how-to-validate-time-in-24-hour-format-using-regular-expression/
+		    String regex = "(([0-9]:[0-5][0-9]:[0-5][0-9])|([2][0-3]:[0-5][0-9]:[0-5][0-9])|([0-1][0-9]:[0-5][0-9]:[0-5][0-9]))";
+	        Pattern p = Pattern.compile(regex);
+	        if (timeSearched == null) {
+	            return false;
+	        }
+	        Matcher m = p.matcher(timeSearched);
+	        return m.matches();
+	    }
+		   //original checker didnt work 
+		   
+		   /*
+		  	int checkerCount =0;
+		  	String x0 = String.valueOf(timeSearched.charAt(0));
+		  	String x1 = String.valueOf(timeSearched.charAt(1));
+		  	String x2 = String.valueOf(timeSearched.charAt(2));
+		  	String x3 = String.valueOf(timeSearched.charAt(3));
+		  	String x4 = String.valueOf(timeSearched.charAt(4));
+		  	String x5 = String.valueOf(timeSearched.charAt(5));
+		  	String x6 = String.valueOf(timeSearched.charAt(6));
+		  	String x7 = String.valueOf(timeSearched.charAt(7));
+		  
+		  	
+		  	if (x0 == ""||x0 == " " || x0 =="0" || x0 =="1" || x0 =="2" || x0 =="3" || x0 =="4" || x0 =="5" || x0 =="6" || x0 =="7" || x0 =="8" || x0 =="9" ) {
+		  		checkerCount++;
+		  		System.out.print("1");
+		  	}
+		  	if (x1 =="0" || x1 =="1" || x1 =="2" || x1 =="3" || x1 =="4" || x1 =="5" || x1 =="6" || x1 =="7" || x1 =="8" || x1 =="9" ) {
+		  		checkerCount++;
+		  		System.out.print("1");
+		  	}
+		  	if (x2 ==":") {
+		  		checkerCount++;
+		  		System.out.print("1");
+		  	}
+		  	if (x3 =="0" || x3 =="1" || x3 =="2" || x3 =="3" || x3=="4" || x3 =="5" || x3 =="6" || x3 =="7" || x3 =="8" || x3 =="9" ) {
+		  		checkerCount++;
+		  		System.out.print("1");
+		  	}if (x4 =="0" || x4 =="1" || x4=="2" || x4 =="3" || x4 =="4" || x4 =="5" || x4 =="6" || x4 =="7" || x4 =="8" || x4 =="9" ) {
+		  		checkerCount++;
+		  		System.out.print("1");
+		  	}
+			if (x5 ==":") {
+		  		checkerCount++;
+		  		System.out.print("1");
+		  	}
+			if (x6 =="0" || x6 =="1" || x6 =="2" || x6 =="3" || x6=="4" || x6 =="5" || x6 =="6" || x6 =="7" || x6 =="8" || x6 =="9" ) {
+		  		checkerCount++;
+		  		System.out.print("1");
+		  	}if (x7 =="0" || x7 =="1" || x7=="2" || x7 =="3" || x7 =="4" || x7 =="5" || x7 =="6" || x7 =="7" || x7 =="8" || x7 =="9" ) {
+		  		checkerCount++;
+		  		System.out.print("1");
+		  	}
+		  	
+		  	if(checkerCount == 8) {
+		  		System.out.print("1");
+		  		return true;
+		  	}
+		  
+		  	return false;
+		  	
+	    }
+	*/
 }
 
